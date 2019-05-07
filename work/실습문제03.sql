@@ -31,6 +31,7 @@ order by concat(e.first_name, ' ', e.last_name) asc;
 -- '전체 사원'이 아니라 '현재 재직 중인 사원'으로 범위를 한정함(Timeout)
 select e.emp_no as '사번',
 	concat(e.first_name, ' ', e.last_name) as '이름',
+    t.title as '직책',
     s.salary as '연봉',
     d.dept_name as '부서'
 from employees e, salaries s, titles t, dept_emp de, departments d
@@ -39,6 +40,7 @@ where e.emp_no = t.emp_no
 	and e.emp_no = de.emp_no
     and de.dept_no = d.dept_no
     and s.to_date = '9999-01-01'
+    and t.to_date = '9999-01-01'
     and de.to_date = '9999-01-01'
 order by concat(e.first_name, ' ', e.last_name) asc;
 
@@ -84,6 +86,15 @@ where t.emp_no = e.emp_no
 group by t.title
 having avg(s.salary) > 50000
 order by avg(s.salary) desc;
+-- 굳이 평균 내고 그러는 거 아니라고 한다. 그렇다면 단순히 이렇게 짜도 되겠지만, 논리에 맞지 않다.
+select e.emp_no as '사번', t.title as '직책', s.salary as '급여'
+from titles t, employees e, salaries s
+where t.emp_no = e.emp_no
+	and e.emp_no = s.emp_no
+    and t.to_date = '9999-01-01'
+    and s.to_date = '9999-01-01'
+    and s.salary > 50000
+order by s.salary desc;
 
 -- 문제9. 현재, 부서별 평균 연봉을 연봉이 큰 부서 순서대로 출력하세요.
 select d.dept_name as '부서명', avg(s.salary) as '평균 연봉'

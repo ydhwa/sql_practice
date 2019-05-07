@@ -5,12 +5,19 @@ select max(salary) as '최고임금',
 	max(salary) - min(salary) as '최고임금 - 최저임금' 
 from salaries;
 
+-- 사원 별 '최고임금', '최저임금', '최고임금 - 최저임금'
+select emp_no as '사번',
+	max(salary) as '최고임금',
+	min(salary) as '최저임금',
+	max(salary) - min(salary) as '최고임금 - 최저임금'
+from salaries
+group by emp_no;
+
 -- 2. 마지막으로 신입사원이 들어온 날은 언제 입니까? 다음 형식으로 출력해주세요.
 -- 예) 2014년 07월 10일
 -- 월 지정을 %c로 하면 07이 아니라 7 이렇게 뜨므로 %m을 사용함
-select date_format(hire_date, '%Y년 %m월 %d일') as '마지막으로 신입사원이 들어온 날' 
-from employees 
-order by hire_date desc limit 1;
+select date_format(max(hire_date), '%Y년 %m월 %d일') as '마지막으로 신입사원이 들어온 날' 
+from employees;
 
 -- 3. 가장 오래 근속한 직원의 입사일은 언제인가요? 다음 형식으로 출력해주세요.
 -- 예) 2014년 07월 10일
@@ -24,6 +31,9 @@ where emp_no = (
     group by emp_no 
     order by sum(to_date - from_date) desc 
     limit 1);
+-- 쉽게 생각해서, 가장 일찍 들어온 직원의 입사일을 출력하라고 한다.
+select date_format(min(hire_date), '%Y년 %m월 %d일') as '가장 오래 근속한 직원의 입사일' 
+from employees;
 
 -- 4. 현재 이 회사의 평균 연봉은 얼마입니까?
 select avg(salary) as '현재 회사의 평균 연봉' 

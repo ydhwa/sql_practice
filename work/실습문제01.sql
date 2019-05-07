@@ -10,7 +10,7 @@ from employees
 order by hire_date asc; 
 
 -- 3. 여직원과 남직원은 각각 몇 명이나 되나요?
-select count(*) as '여직원 수' 
+select count(*) as '여직원 수'
 from employees where 
 gender = 'F'; -- 여직원
 
@@ -38,9 +38,10 @@ from departments
 order by length(dept_name) desc;
 
 -- 8. 현재 급여가 120,000 이상 받는 사원은 몇 명이나 있습니까?
-select count(*) 
+select count(*) as '현재 급여 120,000 이상 받는 사원 수'
 from salaries 
-where to_date = '9999-01-01' && salary >= 120000;
+where to_date = '9999-01-01'
+	and salary >= 120000;
 
 -- 9. 어떤 직책들이 있나요? 중복 없이 이름이 긴 순서대로 출력해 보세요.
 select distinct title 
@@ -48,13 +49,18 @@ from titles
 order by length(title) desc;
 
 -- 10. 현재 Engineer 직책의 사원은 총 몇 명입니까?
--- Assistant Engineer, Senior Engineer는 찾지 않도록 함. 이들도 모두 찾게 하려면 '%Engineer'로 지정하면 된다.
+-- Assistant Engineer, Senior Engineer는 찾지 않도록 함. 이들도 모두 찾게 하려면 "like '%Engineer'"로 지정하면 된다.
 select count(emp_no) 'Engineer 직책의 사원' 
 from titles 
-where title = 'Engineer' && to_date = '9999-01-01';
+where title = 'Engineer'
+	and to_date = '9999-01-01';
 
 -- 11. 사번이 13250(Zeydy)인 지원이 직책 변경 상황을 시간순으로 출력해보세요. 
 select emp_no as '사번', from_date as '직무 시작일', to_date as '직무 종료일' 
 from titles 
 where emp_no = 13250 
 order by to_date;
+-- 해당 사번이 Zeydy가 맞는지 확인
+select emp_no as '사번', first_name as '이름'
+from employees
+where emp_no = 13250;

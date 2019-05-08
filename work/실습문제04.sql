@@ -63,7 +63,8 @@ from employees e,
 		and dm.to_date = '9999-01-01') me
 where e.emp_no = de.emp_no
 	and de.dept_no = d.dept_no
-	and de.dept_no = me.dept_no;
+	and de.dept_no = me.dept_no
+    and de.to_date = '9999-01-01';
 
 
 -- 문제5. 현재, 평균연봉이 가장 높은 부서의 사원들의 사번, 이름, 직책, 연봉을 조회하고 연봉 순으로 출력하세요.

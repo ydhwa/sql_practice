@@ -33,7 +33,7 @@ where e.emp_no = s.emp_no
     and s.salary < (
 					select avg(salary)
 					from salaries
-                    where to_date = '9999-01-01')
+					where to_date = '9999-01-01')
 order by s.salary desc;
 -- 서브쿼리 검증
 select avg(salary)
@@ -164,5 +164,4 @@ where e.emp_no = s.emp_no
     and s.to_date = '9999-01-01'
     and de.to_date = '9999-01-01'
     and s.salary = d.max_salary;
-
 

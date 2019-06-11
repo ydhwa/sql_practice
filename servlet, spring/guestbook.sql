@@ -23,10 +23,34 @@ set name = '양승진', email = 'email@email.com', password = '1234', gender = '
 where no = 1;
 
 select * from user;
+delete from user where no = 3;
 
 select name, email, password, gender from user where no = 1;
 
 select exists(
 		select *
 		from user
-        where email = 'email@email23.com');
+        where email = 'email@email1.com');
+
+select name from user where no = 1;
+
+-- 게시판
+desc board;
+
+insert
+into board
+values(null, '하이', '안녕', now(), 0, 1);
+
+select u.name, title, contents, date_format(b.reg_date, '%Y-%m-%d %H:%i:%s'), views
+from board b, user u
+where b.user_no = u.no
+and b.no = 1;
+
+update board
+set title = '제목입니다~', contents = '내용 내용입니다!'
+where no = 1;
+
+select u.name, title, date_format(b.reg_date, '%Y-%m-%d %H:%i:%s'), views
+from board b, user u
+where b.user_no = u.no
+order by reg_date desc;

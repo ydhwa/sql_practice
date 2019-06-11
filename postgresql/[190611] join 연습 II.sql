@@ -55,3 +55,15 @@ from employees e
     using (emp_no)
 where e.gender = 'F';
 
+
+
+
+-- limit
+-- = select * from employees order by hire_date limit 10, 5;
+select * from employees order by hire_datelimit 5 offset 10;
+
+select emp_no
+from employees
+order by hire_date
+limit 5
+offset 0;
